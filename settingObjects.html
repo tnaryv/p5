@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <script src="p5/p5.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      var ball = new ball(); //create a global object
+      var speed = 10;
+      var radius = 50;
+      function setup() {
+        createCanvas(w, h);
+      }
+      
+      function draw() {
+        background(255);
+        ball.show();
+        ball.move();
+      }
+      
+      function ball() {
+        this.x = 100; //x axis 100
+        this.y = 100; //y axis 100
+        this.show = function() {
+          fill(color("red"));
+          ellipse(this.x, this.y, radius, radius);
+        }
+        this.move = function() {
+          if ((keyIsDown(65)) && (this.x > 30)) {
+            this.x -= speed;
+          }
+          if ((keyIsDown(68)) && (this.x < w-(radius))) {
+            this.x += speed;
+          }
+          if ((keyIsDown(87)) && (this.y > 30)) {
+            this.y -= speed;
+          }
+          if ((keyIsDown(83)) && (this.y < h-(radius + 20))) {
+            this.y += speed;
+          }
+          document.getElementById("text").innerHTML = "X-position: " + this.x + "<br>" + "Y-position: " + this.y;
+        }
+        
+      }
+    </script>
+    <div id="text"></div>
+  </body>
+</html>
