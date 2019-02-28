@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <script src="p5.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      
+      var posX = w/2;
+      var posY = h/2;
+      
+      var posX1 = w/2;
+      var posY1 = h/2;
+      
+      var posX2 = w/2;
+      var posY2 = h/2;
+      
+      var posX3 = w/2;
+      var posY3 = h/2;
+      
+      var x = 50;
+      var y = 50;
+      var radiusX = x/2;
+      var radiusY = y/2;
+      
+      function setup() {
+        createCanvas(w, h);
+      }
+      
+      function draw() {
+        stroke("black");
+        fill(color("white"));
+        ellipse(posX, posY, x, y);
+
+        stroke("white");
+        fill(color("black")),
+        ellipse(posX1, posY1, x, y);
+        
+        stroke("#808080");
+        fill(color("#bfbfbf")),
+        ellipse(posX2, posY2, x, y);
+        
+        stroke("#808080");
+        fill(color("#404040")),
+        ellipse(posX3, posY3, x, y);
+        
+        if ((posX < radiusX) || (posX > w-radiusX)) {
+          posX = w/2;
+        }
+        else {
+          posX += random(-10, 10);
+        }
+        
+        if ((posY < radiusY) || (posY > h-radiusY)) {
+          posY = h/2;
+        }
+        else {
+          posY += random(-10, 10);
+        }
+        ////////////////////////
+        if ((posX1 < radiusX) || (posX1 > w-radiusX)) {
+          posX1 = w/2;
+        }
+        else {
+          posX1 += random(-10, 10);
+        }
+        
+        if ((posY1 < radiusY) || (posY1 > h-radiusY)) {
+          posY1 = h/2;
+        }
+        else {
+          posY1 += random(-10, 10);
+        }
+        ////////////////////////
+        if ((posX2 < radiusX) || (posX2 > w-radiusX)) {
+          posX2 = w/2;
+        }
+        else {
+          posX2 += random(-10, 10);
+        }
+        
+        if ((posY2 < radiusY) || (posY2 > h-radiusY)) {
+          posY2 = h/2;
+        }
+        else {
+          posY2 += random(-10, 10);
+        }
+        ////////////////////////
+        if ((posX3 < radiusX) || (posX3 > w-radiusX)) {
+          posX3 = w/2;
+        }
+        else {
+          posX3 += random(-10, 10);
+        }
+        
+        if ((posY3 < radiusY) || (posY3 > h-radiusY)) {
+          posY3 = h/2;
+        }
+        else {
+          posY3 += random(-10, 10);
+        }
+
+        
+      }
+    </script>
+  </body>
+</html>

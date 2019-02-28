@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <script src="p5.min.js"></script>
+    <style>
+      body {
+        background-color: white;
+        margin: 0;
+        padding: 0;
+      }
+      #sample {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 90%;
+        width: 150px;
+        height: 150px;
+        border-width: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Enter values (0-255). Press "Enter" when done</h1>
+    <h3>Press "b" for black, "w" for white, "g" for gray, "q" to return to the last color entered</h3>
+    
+    <span>Enter a value for Red</span>
+    <input type="number" id="red">
+    <span>Enter a value for Green</span>
+    <input type="number" id="green">
+    <span>Enter a value for Blue</span>
+    <input type="number" id="blue">
+    
+    <div id="sample"></div>
+    
+    <script>
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      var weight = 2;
+      var red = 0;
+      var green = 0;
+      var blue = 0;
+      
+      
+      function setup() {
+        createCanvas(w, h);
+      }
+      function draw() {
+        if (mouseIsPressed) {
+        strokeWeight(weight);
+        line(mouseX, mouseY, pmouseX, pmouseY);
+        }
+      }
+      function keyPressed() {
+        if (keyCode == "38") {
+          weight += 1;
+        }
+        if (keyCode == "40") {
+          weight -= 1;
+        }
+        if (keyCode == "87") {
+          stroke(color("white"));
+          document.getElementById("sample").style.backgroundColor = "white";
+        }
+        if (keyCode == "66") {
+          stroke(color("black"));
+          document.getElementById("sample").style.backgroundColor = "black";
+        }
+        if (keyCode == "71") {
+          stroke(color("#a6a6a6"));
+          document.getElementById("sample").style.backgroundColor = "gray";
+        }
+        if ((keyCode == "13") || (keyCode == "81")){
+          var red = document.getElementById('red').value;
+          var green = document.getElementById('green').value;
+          var blue = document.getElementById('blue').value;
+          stroke(color(red,green,blue));
+          document.getElementById("sample").style.backgroundColor = 'rgb(' + [red,green,blue].join(',') + ')';
+        }
+        if (keyCode == "83") {
+          var x = prompt("What do you call this?");
+          save(x + ".jpg");
+        }
+      }
+    </script>
+  </body>
+</html>
