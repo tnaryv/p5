@@ -1,56 +1,190 @@
 <html>
-  <head>
-    <script src="p5/p5.min.js"></script>
+
+<head>
+    <script src="p5.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /*font-family: 'ABeeZee';*/
+        }
+
+        /*#textBox1 {
+            width: 33vw;
+            height: 5vh;
+            float: left;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        #text1 {
+            text-align: center;
+        }
+
+        #distance {
+            width: 34vw;
+            height: 5vh;
+            float: left;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        #textBox2 {
+            width: 33vw;
+            height: 5vh;
+            float: right;
+            text-align: right;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        #text2 {
+            text-align: center;
+        }*/
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <script>
-      var w = window.innerWidth;
-      var h = window.innerHeight;
-      var ball = new ball(); //create a global object
-      var speed = 10;
-      var radius = 50;
-      function setup() {
-        createCanvas(w, h);
-      }
-      
-      function draw() {
-        background(255);
-        ball.show();
-        ball.move();
-      }
-      
-      function ball() {
-        this.x = 100; //x axis 100
-        this.y = 100; //y axis 100
-        this.show = function() {
-          fill(color("red"));
-          ellipse(this.x, this.y, radius, radius);
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+        var ball = new ball(); //create a global object
+        var otherBall = new otherBall();
+        var red = new red();
+        var green = new green();
+
+        var speed = 6;
+        var radius = 60;
+        var d;
+
+        var randomX = Math.floor(Math.random() * w);
+        var randomY = Math.floor(Math.random() * h);
+
+
+        function setup() {
+            createCanvas(w, h);
         }
-        this.move = function() {
-          if ((keyIsDown(65)) && (this.x > 30)) {
-            this.x -= speed;
-          }
-          if ((keyIsDown(68)) && (this.x < w-(radius))) {
-            this.x += speed;
-          }
-          if ((keyIsDown(87)) && (this.y > 30)) {
-            this.y -= speed;
-          }
-          if ((keyIsDown(83)) && (this.y < h-(radius + 20))) {
-            this.y += speed;
-          }
-          document.getElementById("text").innerHTML = "X-position: " + this.x + "<br>" + "Y-position: " + this.y;
+
+        function draw() {
+            background(255);
+            ball.show();
+            ball.move();
+            ball.collision();
+            otherBall.show();
+            otherBall.move();
+            red.show();
+            red.move();
+            green.show();
+            green.move();
         }
-        
-      }
+
+        function ball() {
+            this.x = 100; //x axis 100
+            this.y = 100; //y axis 100
+            this.show = function() { //show the ball
+                fill(color("black"));
+                ellipse(this.x, this.y, radius, radius);
+            }
+            this.move = function() { //move the ball
+                if ((keyIsDown(65)) && (this.x > 30)) { //a key
+                    this.x -= speed;
+                }
+                if ((keyIsDown(68)) && (this.x < w - (radius))) { //d key
+                    this.x += speed;
+                }
+                if ((keyIsDown(87)) && (this.y > 30)) { //w key
+                    this.y -= speed;
+                }
+                if ((keyIsDown(83)) && (this.y < h - (radius + 20))) { //s key
+                    this.y += speed;
+                }
+                /*document.getElementById("text1").innerHTML = "X-position: " + this.x + "<br>" + "Y-position: " +
+                    this.y;*/
+            }
+            this.collision = function() {
+                d = int(dist(this.x, this.y, otherBall.x2, otherBall.y2)); //calculate distance of ball and otherBall
+                if (d < radius) { //if the distance between the two ball is less than or equal to the radius 
+                    noLoop(); //stop the draw function, freeze screen
+                }
+                //document.getElementById("distance").innerHTML = "Distance: " + d; //display the distance
+            }
+        }
+
+        function otherBall() {
+            this.x2 = w - 100;
+            this.y2 = 100;
+            this.show = function() {
+                fill(color("white"));
+                ellipse(this.x2, this.y2, radius, radius);
+            }
+            this.move = function() {
+                if ((keyIsDown(74)) && (this.x2 > 30)) { //j key
+                    this.x2 -= speed;
+                }
+                if ((keyIsDown(76)) && (this.x2 < (w - radius))) { //l key
+                    this.x2 += speed;
+                }
+                if ((keyIsDown(73)) && (this.y2 > 30)) { //i key
+                    this.y2 -= speed;
+                }
+                if ((keyIsDown(75)) && (this.y2 < h - (radius + 20))) { //k key
+                    this.y2 += speed;
+                }
+                /*document.getElementById("text2").innerHTML = "X-position: " + this.x2 + "<br>" + "Y-position: " +
+                    this.y2;*/
+            }
+        }
+
+        function red() {
+            this.redRadius = Math.floor(Math.random() * (radius - 10));
+            this.show = function() {
+                fill(color("red"));
+                ellipse(randomX, randomY, redRadius, redRadius);
+            }
+            this.move = function() {
+                if ((randomX < redRadius) || (randomX > (w - redRadius))) {
+                    randomX = w / 2;
+                } else {
+                    randomX += random(-10, 10);
+                }
+                if ((randomY < redRadius) || (randomY > (h - redRadius))) {
+                    randomY = h / 2;
+                } else {
+                    randomY += random(-10, 10);
+                }
+            }
+        }
+        function green() {
+            this.greenRadius = Math.floor(Math.random() * (radius - 10));
+            this.show = function() {
+                fill(color("green"));
+                ellipse(randomX1, randomY1, greenRadius, greenRadius);
+            }
+            this.move = function() {
+                if ((randomX < greenRadius) || (randomX > (w - greenRadius))) {
+                    randomX = w / 2;
+                } else {
+                    randomX += random(-10, 10);
+                }
+                if ((randomY < greenRadius) || (randomY > (h - greenRadius))) {
+                    randomY = h / 2;
+                } else {
+                    randomY += random(-10, 10);
+                }
+            }
+        }
+
+        /*<div id="textBox1">
+                <div id="text1"></div>
+            </div>
+            <div id="distance"></div>
+            <div id="textBox2">
+                <div id="text2"></div>
+            </div>*/
     </script>
-    <div id="text"></div>
-  </body>
+
+</body>
+
 </html>
