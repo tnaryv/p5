@@ -1,8 +1,8 @@
 //var randomSize = (Math.random() * 50);
 
 function barrier() {
-  this.height = (Math.random() * 50);
-  this.width = (Math.random() * 50);
+  this.height = (Math.random() * 50 + 50);
+  this.width = (Math.random() * 50 + 50);
   this.x = w + this.width;
   this.y = (Math.random() * h);
   this.leftPull = 1; //the force of gravity
