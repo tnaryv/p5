@@ -5,11 +5,20 @@
   <script src="jumper.js"></script>
   <script src="barrier.js"></script>
   <script src="p5/p5.collide2d.min.js"></script>
+  <script src="platform.js"></script>
+  <script language="javascript" type="text/javascript" src="p5/addons/p5.dom.min.js"></script>
   <style>
     body {
       margin: 0;
       padding:; 0;
       overflow: hidden;
+    }
+    #pointCount {
+      width: 70px;
+      height: 80px;
+      font-size: 30px;
+      float: left;
+      color: white;
     }
   </style>
 </head>
@@ -20,19 +29,25 @@
     var h = window.innerHeight;
     var jumper = new jumper();
     var barrier = new barrier();
+    var platform = new platform();
     var hit = false;
-
+    var scoreDiv;
     function setup() {
       createCanvas(w,h);
+      scoreDiv = createDiv();
+      scoreDiv.id("pointCount");
+      scoreDiv.position(0,0);
     }
     
     function draw() {
-      background(255);
+      background(5);
       jumper.show();
       jumper.move();
       jumper.update();
       barrier.show();
       barrier.update();
+      platform.show();
+      platform.update();
       hit = collideRectCircle(
         barrier.x,
         barrier.y,
@@ -40,15 +55,22 @@
         barrier.height,
         jumper.x,
         jumper.y,
-        50);
+        20);
       if (hit === true) {
         noLoop();
       }
+      hit = collideRectCircle(
+        platform.x,
+        platform.y,
+        platform.width,
+        platform.height,
+        jumper.x,
+        jumper.y,
+        25);
+      if (hit === true) {
+        jumper.velocity = -10;
+      }
     }
-
-    
-  
-  
   </script>
 </body>
 

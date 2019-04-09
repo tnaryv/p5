@@ -6,7 +6,7 @@ function jumper() {
   this.velocity = 0; //speed of the gravity
       
   this.show = function() {
-    fill(color('black'));
+    fill(color('white'));
     ellipse(this.x, this.y, 50, 50);
   }
       
