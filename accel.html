@@ -6,14 +6,18 @@
     <h1 id="ax"></h1>
     <script>
       var ax;
-      
+      var axhigh = 0;
       function setup() {
         createCanvas(window.innerWidth, window.innerHeight);
       }
       
       function draw() {
         ax = accelerationX;
-        document.getElementById("ax").innerHTML = "X-Accel = " + ax;
+        if (ax < axhigh) {
+          axhigh = ax;
+          document.getElementById("axhigh").innerHTML = "X-Accel = " + axhigh;
+
+        }
       }
     </script>
   </body>
