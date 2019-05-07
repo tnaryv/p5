@@ -3,15 +3,24 @@
       <script src="p5.min.js"></script>
   </head>
   <body>
-    <h1 id="move"></h1>
+    <h1 id="rx"></h1>
+    <h1 id="ry"></h1>
+    <h1 id="rz"></h1>
+
     <script>
+        var rz = 0;
+        var rx = 0;
+        var ry = 0;
       function setup() {
         createCanvas(window.innerWidth, window.innerHeight);
       }
       function draw() {
-      }
-      function deviceMoved() {
-          document.getElementById("move").innerHTML = "Device moved!";
+          rz = rotationZ;
+          document.getElementById("rz").innerHTML = "Z = " + rz;
+          rx = rotationX;
+          document.getElementById("rx").innerHTML = "X = " + rx;
+          ry = rotationY;
+          document.getElementById("ry").innerHTML = "Y = " + ry;
       }
     </script>
   </body>
