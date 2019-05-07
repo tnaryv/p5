@@ -3,25 +3,15 @@
       <script src="p5.min.js"></script>
   </head>
   <body>
-    <h1 id="ax"></h1>
-    <h1 id="rx"></h1>
+    <h1 id="move"></h1>
     <script>
-      var ax;
-      var ay;
-
-      //var rx;
       function setup() {
         createCanvas(window.innerWidth, window.innerHeight);
       }
-      
       function draw() {
-        ax = accelerationX;
-        if (ax > 0) {
-            window.alert("ahhhh");
-        }
-        if (ay > 0) {
-            window.alert("ohhhh");
-        }
+      }
+      function deviceMoved() {
+          document.getElementById("move").innerHTML = "Device moved!";
       }
     </script>
   </body>
